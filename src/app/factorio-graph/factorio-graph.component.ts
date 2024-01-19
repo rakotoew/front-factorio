@@ -23,10 +23,10 @@ export class FactorioGraphComponent implements OnInit, AfterViewInit{
   }
   ngOnInit() {
     this.items = [
-      "Storage tamk",
-      "Storage tamk/Steel plate",
-      "Storage tamk/Steel plate/Iron plate",
-      "Storage tamk/Steel plate/Iron plate/Iron ore",
+      "Storage tank",
+      "Storage tank/Steel plate",
+      "Storage tank/Steel plate/Iron plate",
+      "Storage tank/Steel plate/Iron plate/Iron ore",
       "Storage tank/Iron plate",
       "Storage tank/Iron plate/Iron ore",
 

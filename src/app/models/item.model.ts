@@ -2,7 +2,7 @@ export interface Item {
   id: number;
   name: string;
   class: string;
-  craft: Craft[];
+  craft: number[];
   icons: string;
 }
 
@@ -10,18 +10,17 @@ export interface SimpleItem {
   id: number;
   name: string;
   icon: string;
+  craft: number[];
 }
 
 export interface Craft {
-  id: number;
   name: string;
   time: number;
   ingredients: Ingredient[];
-  products: Product[];
 }
 
 export interface Ingredient {
-  ingredient: Item;
+  ingredient: string;
   amount: number;
 }
 

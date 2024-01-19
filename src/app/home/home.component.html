@@ -9,11 +9,11 @@
       </button>
     </div>
   </div>
-  <app-factorio-graph></app-factorio-graph>
+  <app-factorio-graph [items]="itemsTree"></app-factorio-graph>
   <div>
     <div class="list-container" >
       <div *ngFor="let item of items">
-        <img [src]="'assets' + item.icon" alt="{{item.name}}">
+        <img [src]="'assets' + item.icon" alt="{{item.name}}" title="{{item.id}} - {{item.name}}" (click)="itemSelected(item)">
       </div>
     </div>
   </div>

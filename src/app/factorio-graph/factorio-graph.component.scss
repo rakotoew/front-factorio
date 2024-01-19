@@ -1,8 +1,12 @@
 .container {
-  height: 20em;
+  margin-top: 1em;
+  height: auto;
+  max-height: 30em;
+  padding: 2em;
   background: var(--color-secondary);
   border-radius: 0.5em;
-  width: 80vw;
+  width: auto;
+  max-width: 80vw;
   display: flex;
   justify-content: center;
   align-items: center;

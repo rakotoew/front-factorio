@@ -17,11 +17,33 @@ import {FactorioGraphComponent} from "../factorio-graph/factorio-graph.component
 })
 export class HomeComponent implements OnInit{
   items: SimpleItem[] = [];
+  itemsTree: string[] = [];
   constructor(private itemService: ItemsService) {
   }
 
   ngOnInit() {
-    this.getItemsData()
+    this.getItemsData();
+    this.getCraftsData();
+  }
+
+
+
+  getCraftsData() {
+    this.itemService.getCrafts().subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => console.log('Erreur Recuperation Crafts :', error.message),
+    });
+  }
+
+  getAllItemsData() {
+    this.itemService.getAllData().subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => console.log('Erreur Recuperation All Items :', error.message),
+    });
   }
 
 
@@ -34,4 +56,39 @@ export class HomeComponent implements OnInit{
       error: error => console.log('Erreur Recuperation Items :', error.message),
     });
   }
+
+  itemSelected(item: SimpleItem) {
+    console.log(item);
+    this.generateItemsTree(item.name);
+    console.log(this.itemsTree);
+  }
+
+  generateItemsTree(itemName: string): void {
+    const selectedItem = this.items.find(item => item.name === itemName);
+
+    if (!selectedItem) {
+      console.error(`Item with name ${itemName} not found.`);
+      return;
+    }
+
+    this.generatePaths(selectedItem.name, selectedItem.craft);
+  }
+
+  generatePaths(currentPath: string, dependencies: number[]): void {
+    if (dependencies.length === 0) {
+      this.itemsTree.push(currentPath);
+      return;
+    }
+
+    dependencies.forEach(dependencyId => {
+      const dependencyItem = this.items.find(item => item.id === dependencyId);
+      console.log(dependencyId);
+      if(dependencyItem) {
+        const newPath = `${currentPath}/${dependencyItem.name}`;
+        this.generatePaths(newPath, dependencyItem.craft);
+      }
+    });
+  }
+
+
 }

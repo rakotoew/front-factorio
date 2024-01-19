@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+:root{
+  --color-primary: #2C3639;
+  --color-secondary: #3F4E4F;
+  --color-tertiary: #A27B5C;
+  --color-quaternary: #DCD7C9;
+
+  --font: 'Ubuntu';
+
+}
+
+html{
+  font-family: var(--font);
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-primary);
+  margin: 0;
+  padding: 0;
+}

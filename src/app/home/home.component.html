@@ -1,0 +1,20 @@
+<div class="app-container">
+  <div class="head-container">
+    <h1><a routerLink="">Factorio Items Helper</a></h1>
+    <p>Help you find material and ratio for specific craft</p>
+    <div class="search-container">
+      <input>
+      <button>
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </div>
+  <app-factorio-graph></app-factorio-graph>
+  <div>
+    <div class="list-container" >
+      <div *ngFor="let item of items">
+        <img [src]="'assets' + item.icon" alt="{{item.name}}">
+      </div>
+    </div>
+  </div>
+</div>

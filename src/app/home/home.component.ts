@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit{
   }
 
   itemSelected(item: SimpleItem) {
-    console.log(item);
+    this.itemsTree = [];
     this.generateItemsTree(item.name);
     console.log(this.itemsTree);
   }
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit{
       console.error(`Item with name ${itemName} not found.`);
       return;
     }
-
+    console.log(selectedItem);
     this.generatePaths(selectedItem.name, selectedItem.craft);
   }
 
@@ -82,7 +82,6 @@ export class HomeComponent implements OnInit{
 
     dependencies.forEach(dependencyId => {
       const dependencyItem = this.items.find(item => item.id === dependencyId);
-      console.log(dependencyId);
       if(dependencyItem) {
         const newPath = `${currentPath}/${dependencyItem.name}`;
         this.generatePaths(newPath, dependencyItem.craft);

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import * as Plot from '@observablehq/plot'
 import {auto} from "@observablehq/plot";
 
@@ -10,9 +10,16 @@ import {auto} from "@observablehq/plot";
   templateUrl: './factorio-graph.component.html',
   styleUrl: './factorio-graph.component.scss'
 })
-export class FactorioGraphComponent implements OnInit, AfterViewInit{
+export class FactorioGraphComponent implements OnInit, AfterViewInit, OnChanges{
   @Input() items!: string[];
   div: Element | null = null;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.div?.firstElementChild?.remove(); // remove the old tree graph
+    console.log('change')
+
+    this.ngAfterViewInit();
+  }
 
   findImage(name: string): string {
     let result = 'assets/icons/32px_';

@@ -49,7 +49,7 @@ export class FactorioGraphComponent implements OnInit, AfterViewInit, OnChanges{
         marks: [
           Plot.tree(this.items, {stroke: "#A27B5C", strokeWidth: 2, fill: "#DCD7C9", textStroke: null, fontSize: 12}),
         ],
-        width: this.items.length * 100
+        width: 100+ this.items.length * 100
       })
       if (this.div) {
         this.div.append(plot);

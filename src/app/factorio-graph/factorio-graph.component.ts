@@ -1,6 +1,5 @@
-import {AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as Plot from '@observablehq/plot'
-import {auto} from "@observablehq/plot";
 
 @Component({
   selector: 'app-factorio-graph',
@@ -45,11 +44,12 @@ export class FactorioGraphComponent implements OnInit, AfterViewInit, OnChanges{
       const plot = Plot.plot({
         axis: null,
         margin: 10,
-        marginLeft: 100,
+        marginLeft: 150,
         marginRight: 100,
         marks: [
-          Plot.tree(this.items, {stroke: "#A27B5C", strokeWidth: 2, fill: "#DCD7C9", textStroke: null, fontSize: 14}),
-        ]
+          Plot.tree(this.items, {stroke: "#A27B5C", strokeWidth: 2, fill: "#DCD7C9", textStroke: null, fontSize: 12}),
+        ],
+        width: this.items.length * 100
       })
       if (this.div) {
         this.div.append(plot);

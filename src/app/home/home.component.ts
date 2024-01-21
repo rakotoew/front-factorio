@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {ItemsService} from "../services/items.service";
-import {SimpleItem} from "../models/item.model";
+import {Craft, SimpleItem} from "../models/item.model";
 import {NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {FactorioGraphComponent} from "../factorio-graph/factorio-graph.component";
+import {ItemNode} from "../models/tree.model";
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,14 @@ import {FactorioGraphComponent} from "../factorio-graph/factorio-graph.component
 })
 export class HomeComponent implements OnInit{
   items: SimpleItem[] = [];
-  itemsTree: string[] = [];
+  crafts: Craft[] = [];
+  tree: ItemNode = {
+    name: "test",
+    quantity: 1,
+    icon_path: "test",
+    children: []
+  }
+  Itemstree: string[] = [];
   constructor(private itemService: ItemsService) {
   }
 
@@ -31,7 +39,8 @@ export class HomeComponent implements OnInit{
   getCraftsData() {
     this.itemService.getCrafts().subscribe({
       next: response => {
-        console.log(response);
+        this.crafts = response;
+        console.log('craft', this.crafts);
       },
       error: error => console.log('Erreur Recuperation Crafts :', error.message),
     });
@@ -40,7 +49,7 @@ export class HomeComponent implements OnInit{
   getAllItemsData() {
     this.itemService.getAllData().subscribe({
       next: response => {
-        console.log(response);
+        console.log('alldata',response);
       },
       error: error => console.log('Erreur Recuperation All Items :', error.message),
     });
@@ -51,43 +60,66 @@ export class HomeComponent implements OnInit{
     this.itemService.getItems().subscribe({
       next: response => {
         this.items = response;
-        console.log(this.items);
+        console.log('Items :', this.items);
         },
       error: error => console.log('Erreur Recuperation Items :', error.message),
     });
   }
 
   itemSelected(item: SimpleItem) {
-    this.itemsTree = [];
-    this.generateItemsTree(item.name);
-    console.log(this.itemsTree);
+    this.tree = this.generateItemsTree(item);
+    console.log(this.tree.name, this.tree);
+    this.Itemstree = this.tree2Table(this.tree, '');
+    console.log(this.Itemstree);
   }
 
-  generateItemsTree(itemName: string): void {
-    const selectedItem = this.items.find(item => item.name === itemName);
-
-    if (!selectedItem) {
-      console.error(`Item with name ${itemName} not found.`);
-      return;
+  generateItemsTree(item: SimpleItem): ItemNode {
+    let tree: ItemNode = {
+      name: item.name,
+      quantity: 1,
+      icon_path: item.icon,
+      children: []
     }
-    console.log(selectedItem);
-    this.generatePaths(selectedItem.name, selectedItem.craft);
-  }
-
-  generatePaths(currentPath: string, dependencies: number[]): void {
-    if (dependencies.length === 0) {
-      this.itemsTree.push(currentPath);
-      return;
-    }
-
-    dependencies.forEach(dependencyId => {
-      const dependencyItem = this.items.find(item => item.id === dependencyId);
-      if(dependencyItem) {
-        const newPath = `${currentPath}/${dependencyItem.name}`;
-        this.generatePaths(newPath, dependencyItem.craft);
+    tree.children = [];
+    let craft = this.findCraft(item.name);
+    if (craft) {
+      for (let ingredient of craft.ingredients) {
+        let child = this.findItem(ingredient.name);
+        if (child) {
+          tree.children.push(this.generateItemsTree(child));
+        }
       }
-    });
+    }
+    return tree;
   }
+
+  tree2Table(tree: ItemNode, parent: string): string[] {
+    let table: string[] = [];
+    table.push(parent + tree.name);
+    for (let child of tree.children) {
+      table.push(...this.tree2Table(child, parent+tree.name+ '/'));
+    }
+    return table;
+  }
+
+  findCraft(itemName: string) {
+    for (let craft of this.crafts) {
+      if (craft.name == itemName) {
+        return craft;
+      }
+    }
+    return null;
+  }
+
+  findItem(itemName: string) {
+    for (let item of this.items) {
+      if (item.name == itemName) {
+        return item;
+      }
+    }
+    return null;
+  }
+
 
 
 }

@@ -20,7 +20,7 @@ export interface Craft {
 }
 
 export interface Ingredient {
-  ingredient: string;
+  name: string;
   amount: number;
 }
 

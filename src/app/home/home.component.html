@@ -14,7 +14,6 @@
       <p class="selector" [class.underline]="graphShown" (click)="showGraph(true)">Graph network</p>
     </div>
   </div>
-
   <app-factorio-network-graph *ngIf="graphShown"></app-factorio-network-graph>
   <app-factorio-graph [items]="Itemstree" *ngIf="!graphShown"></app-factorio-graph>
   <div class="bottom-container">

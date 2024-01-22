@@ -14,7 +14,6 @@ export class FactorioGraphComponent implements OnInit, AfterViewInit, OnChanges{
   div: Element | null = null;
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.div?.firstElementChild?.remove(); // remove the old tree graph
     this.ngAfterViewInit();
   }
 
@@ -37,6 +36,7 @@ export class FactorioGraphComponent implements OnInit, AfterViewInit, OnChanges{
     ]
   }
   ngAfterViewInit() {
+    this.div?.firstElementChild?.remove(); // remove the old tree graph
     this.div = document.querySelector("#plot");
     if (this.items.length != 0) {
       const plot = Plot.plot({

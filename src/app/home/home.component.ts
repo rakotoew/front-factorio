@@ -2,21 +2,23 @@ import {Component, OnInit} from '@angular/core';
 import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {ItemsService} from "../services/items.service";
 import {Craft, SimpleItem} from "../models/item.model";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {FactorioGraphComponent} from "../factorio-graph/factorio-graph.component";
 import {ItemNode} from "../models/tree.model";
+import {FactorioNetworkGraphComponent} from "../factorio-network-graph/factorio-network-graph.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    MatIcon, MatIconModule, NgForOf, RouterLink, FactorioGraphComponent
+    MatIcon, MatIconModule, NgForOf, RouterLink, FactorioGraphComponent, FactorioNetworkGraphComponent, NgIf
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit{
+  graphShown: boolean = false;
   items: SimpleItem[] = [];
   crafts: Craft[] = [];
   selectedItem: SimpleItem = {
@@ -127,6 +129,7 @@ export class HomeComponent implements OnInit{
     return null;
   }
 
-
-
+  showGraph(bool: boolean) {
+    this.graphShown = bool;
+  }
 }

@@ -9,8 +9,14 @@
         <p class="item-name">{{selectedItem.name}}</p>
       </div>
     </div>
+    <div class="selector-container">
+      <p class="selector" [class.underline]="!graphShown" (click)="showGraph(false)">Items dependency Tree</p>
+      <p class="selector" [class.underline]="graphShown" (click)="showGraph(true)">Graph network</p>
+    </div>
   </div>
-  <app-factorio-graph [items]="Itemstree"></app-factorio-graph>
+
+  <app-factorio-network-graph *ngIf="graphShown"></app-factorio-network-graph>
+  <app-factorio-graph [items]="Itemstree" *ngIf="!graphShown"></app-factorio-graph>
   <div class="bottom-container">
     <h3>Select an Item :</h3>
     <mat-icon>arrow_downward</mat-icon>

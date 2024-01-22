@@ -58,6 +58,24 @@
 
     }
   }
+    .selector-container{
+      display: flex;
+      flex-direction: row;
+      .selector{
+        margin: 0.5em 2em;
+        padding: 0.5em;
+        border-radius: 0.5em;
+        cursor: pointer;
+        &:hover{
+          text-decoration: underline;
+          transform: scale(1.05);
+        }
+      }
+
+      .underline {
+        text-decoration: underline;
+      }
+    }
   }
 
   .bottom-container {

@@ -2,15 +2,18 @@
   <div class="head-container">
     <h1><a routerLink="">Factorio Items Helper</a></h1>
     <p>Help you find material and ratio for specific craft</p>
-    <div class="search-container">
-      <input>
-      <button>
-        <mat-icon>search</mat-icon>
-      </button>
+    <div class="top-container">
+      <h3>Item Selected : </h3>
+      <div class="item-container">
+        <img [src]="'assets' + selectedItem.icon" alt="{{selectedItem.name}}" title="{{selectedItem.name}}">
+        <p class="item-name">{{selectedItem.name}}</p>
+      </div>
     </div>
   </div>
   <app-factorio-graph [items]="Itemstree"></app-factorio-graph>
-  <div>
+  <div class="bottom-container">
+    <h3>Select an Item :</h3>
+    <mat-icon>arrow_downward</mat-icon>
     <div class="list-container" >
       <div *ngFor="let item of items">
         <img [src]="'assets' + item.icon" alt="{{item.name}}" title="{{item.id}} - {{item.name}}" (click)="itemSelected(item)">

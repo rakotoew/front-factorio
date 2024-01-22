@@ -7,8 +7,8 @@ import {Craft, SimpleItem} from "../models/item.model";
   providedIn: 'root'
 })
 export class ItemsService {
-  private apiUrl = 'http://localhost:3000'
-  //private apiUrl = 'https://api-factorio.rakotoew.fr'
+  //private apiUrl = 'http://localhost:3000'
+  private apiUrl = 'https://api-factorio.rakotoew.fr'
   constructor(private http: HttpClient) { }
 
   getAllData(): Observable<any> {

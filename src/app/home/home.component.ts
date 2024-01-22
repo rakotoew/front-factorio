@@ -19,6 +19,12 @@ import {ItemNode} from "../models/tree.model";
 export class HomeComponent implements OnInit{
   items: SimpleItem[] = [];
   crafts: Craft[] = [];
+  selectedItem: SimpleItem = {
+    id: 0,
+    name: "Storage tank",
+    icon: "/icons/32px_Storage_tank.png",
+    craft:[]
+  }
   tree: ItemNode = {
     name: "test",
     quantity: 1,
@@ -67,6 +73,7 @@ export class HomeComponent implements OnInit{
   }
 
   itemSelected(item: SimpleItem) {
+    this.selectedItem = item;
     this.tree = this.generateItemsTree(item);
     console.log(this.tree.name, this.tree);
     this.Itemstree = this.tree2Table(this.tree, '');

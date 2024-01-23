@@ -38,6 +38,14 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.init().then(
+      () => {
+        this.itemSelected(this.selectedItem);
+      }
+    )
+  }
+
+  async init(){
     this.getItemsData();
     this.getCraftsData();
   }
@@ -48,7 +56,7 @@ export class HomeComponent implements OnInit{
     this.itemService.getCrafts().subscribe({
       next: response => {
         this.crafts = response;
-        console.log('craft', this.crafts);
+        this.itemSelected(this.selectedItem);
       },
       error: error => console.log('Erreur Recuperation Crafts :', error.message),
     });
@@ -68,7 +76,7 @@ export class HomeComponent implements OnInit{
     this.itemService.getItems().subscribe({
       next: response => {
         this.items = response;
-        console.log('Items :', this.items);
+        this.itemSelected(this.selectedItem);
         },
       error: error => console.log('Erreur Recuperation Items :', error.message),
     });
@@ -77,9 +85,7 @@ export class HomeComponent implements OnInit{
   itemSelected(item: SimpleItem) {
     this.selectedItem = item;
     this.tree = this.generateItemsTree(item);
-    console.log(this.tree.name, this.tree);
     this.Itemstree = this.tree2Table(this.tree, '');
-    console.log(this.Itemstree);
   }
 
   generateItemsTree(item: SimpleItem): ItemNode {

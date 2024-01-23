@@ -16,6 +16,8 @@ export class FactorioGraphComponent implements OnInit, AfterViewInit, OnChanges{
   ngOnChanges(changes: SimpleChanges): void {
     this.ngAfterViewInit();
   }
+  constructor() {
+  }
 
   findImage(name: string): string {
     let result = 'assets/icons/32px_';
@@ -25,15 +27,7 @@ export class FactorioGraphComponent implements OnInit, AfterViewInit, OnChanges{
     return result;
   }
   ngOnInit() {
-    this.items = [
-      "Storage tank",
-      "Storage tank/Steel plate",
-      "Storage tank/Steel plate/Iron plate",
-      "Storage tank/Steel plate/Iron plate/Iron ore",
-      "Storage tank/Iron plate",
-      "Storage tank/Iron plate/Iron ore",
 
-    ]
   }
   ngAfterViewInit() {
     this.div?.firstElementChild?.remove(); // remove the old tree graph
